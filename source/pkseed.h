@@ -9,7 +9,7 @@ struct 		s_3fs
   FS_archive 	arch;
 };
 
-struct s_pchex
+struct s_pkseed
 {
   PrintConsole 	top;
   PrintConsole 	bot;

@@ -19,54 +19,54 @@ void 	waitKey(u32 keyWait) {
   } 
 }
 
-int 	pchexinit(struct s_pchex *pch) {
+int 	pkseedinit(struct s_pkseed *pks) {
   int 	fs;
 
   //General Init
   srand(time(NULL));
   gfxInitDefault();
-  consoleInit(GFX_BOTTOM, &pch->bot);
-  consoleInit(GFX_TOP, &pch->top);
+  consoleInit(GFX_BOTTOM, &pks->bot);
+  consoleInit(GFX_TOP, &pks->top);
 
   //Show build time
   printf("PKSeed build: %s %s\n",__DATE__,__TIME__);
   //Filesystem Init
   printf("Init Filesystem...\n");
-  fs = filesysInit(&pch->sd.handle, &pch->sav.handle, &pch->sd.arch, &pch->sav.arch);
+  fs = filesysInit(&pks->sd.handle, &pks->sav.handle, &pks->sd.arch, &pks->sav.arch);
   if (fs)
     printf("Init FS Failed\n");
   else
     printf("Init FS OK\n");
 
   //save loading, save is loaded into the array 'save'
-  pch->save = malloc(0xEB000);
-  pch->game = loadSave(pch->save, &pch->sav.handle, &pch->sav.arch);
-  if (pch->game < 0)
-    pch->game = loadSave(pch->save, &pch->sd.handle, &pch->sd.arch);
-  if (pch->game < 0)
+  pks->save = malloc(0xEB000);
+  pks->game = loadSave(pks->save, &pks->sav.handle, &pks->sav.arch);
+  if (pks->game < 0)
+    pks->game = loadSave(pks->save, &pks->sd.handle, &pks->sd.arch);
+  if (pks->game < 0)
     return -1;
 
-  if (loadSaveInfo(pch->save)) {
+  if (loadSaveInfo(pks->save)) {
     printf("Load Failed, Exiting\n");
     return -1;
   }
   return 0;
 }
 
-int 	pchexexit(struct s_pchex *pch) {
-  consoleSelect(&pch->bot);
+int 	pkseedexit(struct s_pkseed *pks) {
+  consoleSelect(&pks->bot);
   consoleClear();
   printf("\x1B[15;2H");
   printf("Program ended, press A to finish\n");
   waitKey(KEY_A);
-  free(pch->save);
+  free(pks->save);
   gfxExit();
-  filesysExit(&pch->sd.handle, &pch->sav.handle, &pch->sd.arch, &pch->sav.arch);
+  filesysExit(&pks->sd.handle, &pks->sav.handle, &pks->sd.arch, &pks->sav.arch);
   return (0);
 }
 
 int 	main() {
-  struct s_pchex pch;
-  pchexinit(&pch);
-  return pchexexit(&pch);
+  struct s_pkseed pks;
+  pkseedinit(&pks);
+  return pkseedexit(&pks);
 }
