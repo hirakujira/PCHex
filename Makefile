@@ -138,7 +138,6 @@ clean:
 
 sync: $(BUILD)
 	@cp ./PKSeed.3dsx /Volumes/3DS/3ds/PKSeed/PKSeed.3dsx
-	@cp ./PKSeed.elf /Volumes/3DS/3ds/PKSeed/PKSeed.elf
 	@cp ./PKSeed.smdh /Volumes/3DS/3ds/PKSeed/PKSeed.smdh
 
 sync2: $(BUILD)

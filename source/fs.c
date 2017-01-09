@@ -2,10 +2,9 @@
 #include <string.h>
 #include <3ds.h>
 
-#include "pchex.h"
+#include "pkseed.h"
 
-Result _srvGetServiceHandle(Handle* out, const char* name)
-{
+Result _srvGetServiceHandle(Handle* out, const char* name) {
   Result rc = 0;
 
   u32* cmdbuf = getThreadCommandBuffer();
@@ -20,8 +19,7 @@ Result _srvGetServiceHandle(Handle* out, const char* name)
   return cmdbuf[1];
 }
 
-Result loadFile(char* path, void* dst, FS_archive* archive, Handle* fsHandle, u64 maxSize, u32 *bytesRead)
-{
+Result loadFile(char* path, void* dst, FS_archive* archive, Handle* fsHandle, u64 maxSize, u32 *bytesRead) {
     // must malloc first! (and memset, if you'd like)
     if(!path || !dst || !archive)return -1;
 
@@ -45,78 +43,8 @@ Result loadFile(char* path, void* dst, FS_archive* archive, Handle* fsHandle, u6
     return ret;
 }
 
-Result saveFile(char *path, void *src, u64 size, FS_archive *archive, Handle *fsHandle, u32 *bytesWritten)
-{
-  if (!path || !src || !archive) return -1;
 
-  Result ret;
-  Handle fileHandle;
-
-  ret = FSUSER_OpenFile(fsHandle, &fileHandle, *archive, FS_makePath(PATH_CHAR, path), FS_OPEN_WRITE | FS_OPEN_CREATE, 0);
-  if (ret) return ret;
-
-  ret = FSFILE_Write(fileHandle, bytesWritten, 0, src, size, 0);
-
-  FSFILE_Close(fileHandle);
-
-  return ret;
-}
-
-Result FSUSER_ControlArchive(Handle handle, FS_archive archive)
-{
-  u32* cmdbuf=getThreadCommandBuffer();
-
-  u32 b1 = 0, b2 = 0;
-
-  cmdbuf[0]=0x080d0144;
-  cmdbuf[1]=archive.handleLow;
-  cmdbuf[2]=archive.handleHigh;
-  cmdbuf[3]=0x0;
-  cmdbuf[4]=0x1; //buffer1 size
-  cmdbuf[5]=0x1; //buffer1 size
-  cmdbuf[6]=0x1a;
-  cmdbuf[7]=(u32)&b1;
-  cmdbuf[8]=0x1c;
-  cmdbuf[9]=(u32)&b2;
-
-  Result ret=0;
-  if((ret=svcSendSyncRequest(handle)))return ret;
-
-  return cmdbuf[1];
-}
-
-Result saveSFile(char *path, void *src, u64 size, FS_archive *archive, Handle *fsHandle, u32 *bytesWritten)
-{
-  if (!path || !src || !archive) return -1;
-
-  Result ret;
-  Handle fileHandle;
-
-  ret = FSUSER_OpenFile(fsHandle, &fileHandle, *archive, FS_makePath(PATH_CHAR, path), FS_OPEN_WRITE | FS_OPEN_CREATE, 0);
-  if (ret) return ret;
-
-  ret = FSFILE_Write(fileHandle, bytesWritten, 0, src, size, 0);
-  if (ret) return ret;
-
-  FSFILE_Close(fileHandle);
-  if (ret) return ret;
-
-  ret = FSUSER_ControlArchive(*fsHandle, *archive);
-  return ret;
-}
-
-s32 	deleteFile(char *path, Handle *fsHandle, FS_archive *fsarch)
-{
-  s32 	ret;
-
-  if (!path || !fsarch || !fsHandle)
-    return -1;
-  ret = FSUSER_DeleteFile(fsHandle, *fsarch, FS_makePath(PATH_CHAR, path));
-  return ret;
-}
-
-s32	filesysInit(Handle *sd, Handle *save, FS_archive *sdarch, FS_archive *savearch)
-{
+s32	filesysInit(Handle *sd, Handle *save, FS_archive *sdarch, FS_archive *savearch) {
   Result ret;
 
   printf("  Getting SD Card handle\n");
@@ -140,11 +68,9 @@ s32	filesysInit(Handle *sd, Handle *save, FS_archive *sdarch, FS_archive *savear
   *savearch = (FS_archive){0x4, (FS_path){PATH_EMPTY, 0, NULL}, 0, 0};
   ret = FSUSER_OpenArchive(save, savearch);
   return ret;
-
 }
 
-s32 	filesysExit(Handle *sd, Handle *save, FS_archive *sdarch, FS_archive *savearch)
-{
+s32 	filesysExit(Handle *sd, Handle *save, FS_archive *sdarch, FS_archive *savearch) {
   FSUSER_CloseArchive(save, savearch);
   FSUSER_CloseArchive(sd, sdarch);
   svcCloseHandle(*save);

@@ -4,34 +4,10 @@
 #include <time.h>
 #include <3ds.h>
 
-#include "pchex.h"
+#include "pkseed.h"
 
-//Basic line separation to array of strings
-s8 	loadLines(u8 *src, u8 *dst, u8 strlen,  u32 size)
-{
-  u16 	readnum = 3;
-  u16 	line = 0, chr; 
-
-  while (readnum < size)
-  {
-    chr = 0;
-    while (readnum < size && src[readnum] != '\n')
-    {
-      dst[line * strlen + chr] = src[readnum];
-      readnum++;
-      chr++;
-    }
-    dst[line * strlen + chr] = 0;
-    readnum++;
-    line++;
-  }
-  return 0;
-}
-
-void 	waitKey(u32 keyWait)
-{
- while (aptMainLoop())
-  {
+void 	waitKey(u32 keyWait) {
+  while (aptMainLoop()) {
     hidScanInput();
 
     u32 kPressed = hidKeysDown();
@@ -43,8 +19,7 @@ void 	waitKey(u32 keyWait)
   } 
 }
 
-int 	pchexinit(struct s_pchex *pch)
-{
+int 	pchexinit(struct s_pchex *pch) {
   int 	fs;
 
   //General Init
@@ -71,16 +46,14 @@ int 	pchexinit(struct s_pchex *pch)
   if (pch->game < 0)
     return -1;
 
-  if (loadSaveInfo(pch->save))
-  {
+  if (loadSaveInfo(pch->save)) {
     printf("Load Failed, Exiting\n");
     return -1;
   }
   return 0;
 }
 
-int 	pchexexit(struct s_pchex *pch)
-{
+int 	pchexexit(struct s_pchex *pch) {
   consoleSelect(&pch->bot);
   consoleClear();
   printf("\x1B[15;2H");
@@ -92,8 +65,7 @@ int 	pchexexit(struct s_pchex *pch)
   return (0);
 }
 
-int 	main()
-{
+int 	main() {
   struct s_pchex pch;
   pchexinit(&pch);
   return pchexexit(&pch);
