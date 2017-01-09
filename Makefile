@@ -33,9 +33,9 @@ SOURCES		:=	source source/state
 DATA		:=	data
 INCLUDES	:=	include
 
-APP_TITLE 	:= 	PCHex
-APP_DESCRIPTION := 	A Gen6 save editor
-APP_AUTHOR 	:= 	Stracker
+APP_TITLE 	:= 	PKSeed
+APP_DESCRIPTION := 	Check Gen 7 seed & TSV
+APP_AUTHOR 	:= 	Hiraku
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -137,9 +137,9 @@ clean:
 	@rm -fr $(BUILD) $(TARGET).3dsx $(OUTPUT).smdh $(TARGET).elf
 
 sync: $(BUILD)
-	@cp ./PCHex.3dsx /Volumes/3DS/3ds/PCHex/PCHex.3dsx
-	@cp ./PCHex.elf /Volumes/3DS/3ds/PCHex/PCHex.elf
-	@cp ./PCHex.smdh /Volumes/3DS/3ds/PCHex/PCHex.smdh
+	@cp ./PKSeed.3dsx /Volumes/3DS/3ds/PKSeed/PKSeed.3dsx
+	@cp ./PKSeed.elf /Volumes/3DS/3ds/PKSeed/PKSeed.elf
+	@cp ./PKSeed.smdh /Volumes/3DS/3ds/PKSeed/PKSeed.smdh
 #---------------------------------------------------------------------------------
 else
 

@@ -42,42 +42,19 @@ u16 crc16[] = {
 
 u32 	getCHKOffset(u8 game, u8 type, u8 index)
 {
-  u32 startoras[] = { 0x05400, 0x05800, 0x06400, 0x06600, 0x06800, 0x06A00, 0x06C00, 0x06E00, 0x07000, 0x07200, 0x07400, 0x09600, 0x09800, 0x09E00, 0x0A400, 0x0F400, 0x14400, 0x19400, 0x19600, 0x19E00, 0x1A400, 0x1B600, 0x1BE00, 0x1C000, 0x1C200, 0x1C800, 0x1CA00, 0x1CE00, 0x1D600, 0x1D800, 0x1DA00, 0x1DC00, 0x1DE00, 0x1E000, 0x1E800, 0x1EE00, 0x1F200, 0x20E00, 0x21000, 0x21400, 0x21800, 0x22000, 0x23C00, 0x24000, 0x24800, 0x24C00, 0x25600, 0x25A00, 0x26200, 0x27000, 0x27200, 0x27400, 0x28200, 0x28A00, 0x28E00, 0x30A00, 0x38400, 0x6D000, };
   u32 startsm[] =  { 0x00000, 0x00E00, 0x01000, 0x01200, 0x01400, 0x01C00, 0x02A00, 0x03A00, 0x03E00, 0x04000, 0x04200, 0x04400, 0x04600, 0x04800, 0x04E00, 0x3B400, 0x40C00, 0x40E00, 0x42000, 0x43C00, 0x4A200, 0x50800, 0x54200, 0x54400, 0x54600, 0x64C00, 0x65000, 0x65C00, 0x69C00, 0x6A000, 0x6A800, 0x6AA00, 0x6B200, 0x6B400, 0x6B600, 0x6B800, 0x6BA00 };
-  u32 startxy[] = { 0x05400, 0x05800, 0x06400, 0x06600, 0x06800, 0x06A00, 0x06C00, 0x06E00, 0x07000, 0x07200, 0x07400, 0x09600, 0x09800, 0x09E00, 0x0A400, 0x0F400, 0x14400, 0x19400, 0x19600, 0x19E00, 0x1A400, 0x1AC00, 0x1B400, 0x1B600, 0x1B800, 0x1BE00, 0x1C000, 0x1C400, 0x1CC00, 0x1CE00, 0x1D000, 0x1D200, 0x1D400, 0x1D600, 0x1DE00, 0x1E400, 0x1E800, 0x20400, 0x20600, 0x20800, 0x20C00, 0x21000, 0x22C00, 0x23000, 0x23800, 0x23C00, 0x24600, 0x24A00, 0x25200, 0x26000, 0x26200, 0x26400, 0x27200, 0x27A00, 0x5C600, };
-  u32 lengthoras[] = { 0x000002C8, 0x00000B90, 0x0000002C, 0x00000038, 0x00000150, 0x00000004, 0x00000008, 0x000001C0, 0x000000BE, 0x00000024, 0x00002100, 0x00000130, 0x00000440, 0x00000574, 0x00004E28, 0x00004E28, 0x00004E28, 0x00000170, 0x0000061C, 0x00000504, 0x000011CC, 0x00000644, 0x00000104, 0x00000004, 0x00000420, 0x00000064, 0x000003F0, 0x0000070C, 0x00000180, 0x00000004, 0x0000000C, 0x00000048, 0x00000054, 0x00000644, 0x000005C8, 0x000002F8, 0x00001B40, 0x000001F4, 0x000003E0, 0x00000216, 0x00000640, 0x00001A90, 0x00000400, 0x00000618, 0x0000025C, 0x00000834, 0x00000318, 0x000007D0, 0x00000C48, 0x00000078, 0x00000200, 0x00000C84, 0x00000628, 0x00000400, 0x00007AD0, 0x000078B0, 0x00034AD0, 0x0000E058, };
-  u32 lengthxy[] = { 0x000002C8, 0x00000B88, 0x0000002C, 0x00000038, 0x00000150, 0x00000004, 0x00000008, 0x000001C0, 0x000000BE, 0x00000024, 0x00002100, 0x00000140, 0x00000440, 0x00000574, 0x00004E28, 0x00004E28, 0x00004E28, 0x00000170, 0x0000061C, 0x00000504, 0x000006A0, 0x00000644, 0x00000104, 0x00000004, 0x00000420, 0x00000064, 0x000003F0, 0x0000070C, 0x00000180, 0x00000004, 0x0000000C, 0x00000048, 0x00000054, 0x00000644, 0x000005C8, 0x000002F8, 0x00001B40, 0x000001F4, 0x000001F0, 0x00000216, 0x00000390, 0x00001A90, 0x00000308, 0x00000618, 0x0000025C, 0x00000834, 0x00000318, 0x000007D0, 0x00000C48, 0x00000078, 0x00000200, 0x00000C84, 0x00000628, 0x00034AD0, 0x0000E058, };
   u32 lengthsm[] = { 0xDE0, 0x07C, 0x014, 0x0C0, 0x61C, 0xE00, 0xF78, 0x228, 0x104, 0x200, 0x020, 0x004, 0x058, 0x5E6, 0x36600, 0x572C, 0x008, 0x1080, 0x1A08, 0x6408, 0x6408, 0x3998, 0x100, 0x100, 0x10528, 0x204, 0xB60, 0x3F50, 0x358, 0x728, 0x200, 0x718, 0x1FC, 0x200, 0x120, 0x1C8, 0x200 };
-  // if (game)
-  {
-    if (type)
-      return lengthsm[index];
-    else
-      return startsm[index] - 0x5400;
-  }
-  // else
-  // {
-  //   if (type)
-  //     return lengthxy[index];
-  //   else
-  //     return startxy[index] - 0x5400;
-  // }
+
+  if (type)
+    return lengthsm[index];
+  else
+    return startsm[index] - 0x5400;
 }
 
 s8	getGame(u32 bytesRead)
 {
   u8 game = -1;
-  if (bytesRead == 0x76000)
-  {
-    printf("found OR/AS save\n");
-    game = 1;
-  }
-  else if (bytesRead == 0x65600)
-  {
-    printf("found X/Y save\n");
-    game = 0;
-  }
-  else if (bytesRead == 0x6BE00)
+  if (bytesRead == 0x6BE00)
   {
     printf("found S/M save\n");
     game = 0;
@@ -102,28 +79,20 @@ u16 	ccitt16(u8 *data, u32 len)
   return crc;
 }
 
-s32 	rewriteSaveCHK(u8 *save, u8 game)
-{
-  // u8 	blockCount = (game) ? 58 : 55;
+s32 	rewriteSaveCHK(u8 *save, u8 game) {
   u8 blockCount = 37;
-  // u32 	csoff = (game ? 0x7B21A : 0x6A81A) - 0x5400;
   u32 csoff =  0x6BE00 - 0x200 + 0x10 + 0x0A;
   u8 	*tmp = malloc(0x35000);
   u16 	cs;
 
   if (!tmp)
     return -1;
-  // for (int i = 0; i < blockCount; i++)
-  // {
-  //   memcpy(tmp, save + getCHKOffset(game, 0, i), getCHKOffset(game, 1, i));
-  //   cs = ccitt16(tmp, getCHKOffset(game, 1, i));
-  //   memcpy(save + csoff + i * 8, &cs, 2);
-  // }
+
   for (u32 i = 0; i < blockCount; i++) {
-      memcpy(tmp, save + getCHKOffset(game, 0, i), getCHKOffset(game, 1, i));
-      cs = check16(tmp, getBlockID(save, csoff, i), getCHKOffset(game, 1, i));
-      memcpy(save + csoff + i * 8, &cs, 2);
-    }
+    memcpy(tmp, save + getCHKOffset(game, 0, i), getCHKOffset(game, 1, i));
+    cs = check16(tmp, getBlockID(save, csoff, i), getCHKOffset(game, 1, i));
+    memcpy(save + csoff + i * 8, &cs, 2);
+  }
     
   resign(save);
   free(tmp);
@@ -132,23 +101,24 @@ s32 	rewriteSaveCHK(u8 *save, u8 game)
 
 s32 	backupSave(u8 *save, u8 game, Handle *fshdl, FS_archive *fsarch)
 {
-  char 	dir[] = "/3ds/PCHex/";
+  char 	dir[] = "/3ds/PKSeed/";
   char 	path[100];
   // u32 	len = game ? 0x76000 : 0x65600;
   u32   len = 0x6BE00;
   u32 	bytesWritten;
   s32 	ret;
 
-  printf("Backing save up...");
-  sprintf(path, "%smain_%d", dir,(int) time(NULL));
+  printf("Exporting save...");
+  sprintf(path, "%smain", dir);
   ret = saveFile(path, save, len, fsarch, fshdl, &bytesWritten); //actually write the file
   if (ret) return ret;
   printf(" OK\n");
-  printf("backed save up to %s\n", path);
-  printf("\nTID: %lu\n",(((u32)(getSaveSID(save) * 65536) + getSaveTID(save)) % 1000000));
-  printf("SID: %lu\n", getSaveSID(save));
-  printf("TSV: %lu\n", getSaveTSV(save));
-  printf("Current Seed:\n%x %x %x %x\n", getSeed(save, 3), getSeed(save, 2), getSeed(save, 1), getSeed(save, 0));
+  printf("Exported save to %s\n", path);
+  printf("Loading information now...\n\n");
+  printf("TID: %lu\n",(((u32)(getSaveSID(save) * 65536) + getSaveTID(save)) % 1000000));
+  printf("SID: %u\n", getSaveSID(save));
+  printf("TSV: %u\n", getSaveTSV(save));
+  printf("Current Seed:\n%lx %lx %lx %lx\n", getSeed(save, 3), getSeed(save, 2), getSeed(save, 1), getSeed(save, 0));
   return 0;
 }
 
