@@ -101,19 +101,6 @@ s32 	rewriteSaveCHK(u8 *save, u8 game) {
 
 s32 	backupSave(u8 *save, u8 game, Handle *fshdl, FS_archive *fsarch)
 {
-  char 	dir[] = "/3ds/PKSeed/";
-  char 	path[100];
-  // u32 	len = game ? 0x76000 : 0x65600;
-  u32   len = 0x6BE00;
-  u32 	bytesWritten;
-  s32 	ret;
-
-  printf("Exporting save...");
-  sprintf(path, "%smain", dir);
-  ret = saveFile(path, save, len, fsarch, fshdl, &bytesWritten); //actually write the file
-  if (ret) return ret;
-  printf(" OK\n");
-  printf("Exported save to %s\n", path);
   printf("Loading information now...\n\n");
   printf("TID: %lu\n",(((u32)(getSaveSID(save) * 65536) + getSaveTID(save)) % 1000000));
   printf("SID: %u\n", getSaveSID(save));
