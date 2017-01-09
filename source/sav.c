@@ -93,8 +93,6 @@ s32 	rewriteSaveCHK(u8 *save, u8 game) {
     cs = check16(tmp, getBlockID(save, csoff, i), getCHKOffset(game, 1, i));
     memcpy(save + csoff + i * 8, &cs, 2);
   }
-    
-  resign(save);
   free(tmp);
   return (0);
 }
