@@ -136,7 +136,10 @@ clean:
 	@echo clean ...
 	@rm -fr $(BUILD) $(TARGET).3dsx $(OUTPUT).smdh $(TARGET).elf
 
-
+sync: $(BUILD)
+	@cp ./PCHex.3dsx /Volumes/3DS/3ds/PCHex/PCHex.3dsx
+	@cp ./PCHex.elf /Volumes/3DS/3ds/PCHex/PCHex.elf
+	@cp ./PCHex.smdh /Volumes/3DS/3ds/PCHex/PCHex.smdh
 #---------------------------------------------------------------------------------
 else
 

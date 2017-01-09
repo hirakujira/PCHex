@@ -1,5 +1,5 @@
 #!/bin/bash
 
-mkdir -p export/PCHex
-cp -rf data PCHex.3dsx PCHex.smdh PCHex.xml export/PCHex
+mkdir -p export/PKSeed
+cp -rf data PKSeed.3dsx PKSeed.smdh PKSeed.xml export/PKSeed
 

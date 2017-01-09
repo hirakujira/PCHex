@@ -78,4 +78,12 @@ s16 	overlayGetItems();
 s16 	overlayGetBalls();
 s16 	overlayGetNature();
 
+u16 getBlockID(u8* mainbuf, int csoff, u32 i);
+u16 check16(u8 data[], u32 blockID, u32 len);
+
+u16 getSaveSID(u8* mainbuf);
+u16 getSaveTID(u8* mainbuf);
+u16 getSaveTSV(u8* mainbuf);
+u32 getSeed(u8* mainbuf, int index);
+
 #endif /* end of include guard: PCHEX_H */

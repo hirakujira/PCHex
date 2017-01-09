@@ -115,8 +115,8 @@ int 	pchexinit(struct s_pchex *pch)
     printf("Init FS OK\n");
 
   //Load Pokemon Data
-  if (loadData(&pch->sd.handle, &pch->sd.arch))
-    return -1;
+  // if (loadData(&pch->sd.handle, &pch->sd.arch))
+  //   return -1;
 
   //save loading, save is loaded into the array 'save'
   pch->save = malloc(0xEB000);
@@ -131,6 +131,12 @@ int 	pchexinit(struct s_pchex *pch)
     printf("Backup Failed, Exiting\n");
     return -1;
   }
+  // sftd_draw_textf(
+  //   fontBold9, 16, 220, WHITE, 9, "TID: %lu / SID: %u / TSV: %u", 
+  //   (game < 4) ? 
+  //   (u32)getSaveTID(mainbuf, game) : 
+  //   (((u32)(getSaveSID(mainbuf, game) * 65536) + getSaveTID(mainbuf, game)) % 1000000), getSaveSID(mainbuf, game), getSaveTSV(mainbuf, game));
+
   return 0;
 }
 
@@ -150,9 +156,9 @@ int 	pchexexit(struct s_pchex *pch)
 int 	main()
 {
   struct s_pchex pch;
-  
-  if (pchexinit(&pch) >= 0)
-    startLoop(&pch); //main loop
+  pchexinit(&pch);
+  // if (pchexinit(&pch) >= 0)
+    // startLoop(&pch); //main loop
     //exportSave(save, game, &saveHandle, &saveArchive);
   return pchexexit(&pch);
 }
