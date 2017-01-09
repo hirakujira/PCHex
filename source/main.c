@@ -28,59 +28,6 @@ s8 	loadLines(u8 *src, u8 *dst, u8 strlen,  u32 size)
   return 0;
 }
 
-/*
- * loads general pokemon data like names and species data
- */
-s8 	loadData(Handle *sdHandle, FS_archive *sdArchive)
-{
-  u8	tmp[12000];
-  u32 	bytesRead;
-  Result ret;
-
-  printf("Loading species data...");
-  ret = loadFile("/3ds/PCHex/data/personal", tmp, sdArchive, sdHandle, 12000, &bytesRead); 
-  if (ret) { printf("loading failed : error code %ld\n", ret); return ret; }
-  memcpy(pkData.pkmData, tmp, bytesRead);
-  printf(" OK\n");
-
-  printf("Loading species names...");
-  ret = loadFile("/3ds/PCHex/data/text/text_Species_en.txt", tmp, sdArchive, sdHandle, 12000, &bytesRead);
-  if (ret) { printf("loading failed : error code %ld\n", ret); return ret; }
-  loadLines(tmp, pkData.species[0], 12, bytesRead);
-  printf(" OK\n");
-
-  printf("Loading move names...");
-  ret = loadFile("/3ds/PCHex/data/text/text_Moves_en.txt", tmp, sdArchive, sdHandle, 12000, &bytesRead);
-  if (ret) { printf("loading failed : error code %ld\n", ret); return ret; }
-  loadLines(tmp, pkData.moves[0], 17, bytesRead);
-  printf(" OK\n");
-
-  printf("Loading ability names...");
-  ret = loadFile("/3ds/PCHex/data/text/text_Abilities_en.txt", tmp, sdArchive, sdHandle, 12000, &bytesRead);
-  if (ret) { printf("loading failed : error code %ld\n", ret); return ret; }
-  loadLines(tmp, pkData.abilities[0], 15, bytesRead);
-  printf(" OK\n");
-
-  printf("Loading item names...");
-  ret = loadFile("/3ds/PCHex/data/text/text_Items_en.txt", tmp, sdArchive, sdHandle, 12000, &bytesRead);
-  if (ret) { printf("loading failed : error code %ld\n", ret); return ret; }
-  loadLines(tmp, pkData.items[0], 17, bytesRead);
-  printf(" OK\n");
-
-  printf("Loading ball names...");
-  ret = loadFile("/3ds/PCHex/data/text/text_Balls_en.txt", tmp, sdArchive, sdHandle, 12000, &bytesRead);
-  if (ret) { printf("loading failed : error code %ld\n", ret); return ret; }
-  loadLines(tmp, pkData.balls[0], 13, bytesRead);
-  printf(" OK\n");
-
-  printf("Loading nature names...");
-  ret = loadFile("/3ds/PCHex/data/text/text_Natures_en.txt", tmp, sdArchive, sdHandle, 12000, &bytesRead);
-  if (ret) { printf("loading failed : error code %ld\n", ret); return ret; }
-  loadLines(tmp, pkData.natures[0], 8, bytesRead);
-  printf(" OK\n");
-  return 0;
-}
-
 void 	waitKey(u32 keyWait)
 {
  while (aptMainLoop())
@@ -114,10 +61,6 @@ int 	pchexinit(struct s_pchex *pch)
   else
     printf("Init FS OK\n");
 
-  //Load Pokemon Data
-  // if (loadData(&pch->sd.handle, &pch->sd.arch))
-  //   return -1;
-
   //save loading, save is loaded into the array 'save'
   pch->save = malloc(0xEB000);
   pch->game = loadSave(pch->save, &pch->sav.handle, &pch->sav.arch);
@@ -131,12 +74,6 @@ int 	pchexinit(struct s_pchex *pch)
     printf("Backup Failed, Exiting\n");
     return -1;
   }
-  // sftd_draw_textf(
-  //   fontBold9, 16, 220, WHITE, 9, "TID: %lu / SID: %u / TSV: %u", 
-  //   (game < 4) ? 
-  //   (u32)getSaveTID(mainbuf, game) : 
-  //   (((u32)(getSaveSID(mainbuf, game) * 65536) + getSaveTID(mainbuf, game)) % 1000000), getSaveSID(mainbuf, game), getSaveTSV(mainbuf, game));
-
   return 0;
 }
 
@@ -157,8 +94,5 @@ int 	main()
 {
   struct s_pchex pch;
   pchexinit(&pch);
-  // if (pchexinit(&pch) >= 0)
-    // startLoop(&pch); //main loop
-    //exportSave(save, game, &saveHandle, &saveArchive);
   return pchexexit(&pch);
 }
