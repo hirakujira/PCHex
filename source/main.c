@@ -53,6 +53,8 @@ int 	pchexinit(struct s_pchex *pch)
   consoleInit(GFX_BOTTOM, &pch->bot);
   consoleInit(GFX_TOP, &pch->top);
 
+  //Show build time
+  printf("PKSeed build: %s %s\n",__DATE__,__TIME__);
   //Filesystem Init
   printf("Init Filesystem...\n");
   fs = filesysInit(&pch->sd.handle, &pch->sav.handle, &pch->sd.arch, &pch->sav.arch);
@@ -69,9 +71,9 @@ int 	pchexinit(struct s_pchex *pch)
   if (pch->game < 0)
     return -1;
 
-  if (backupSave(pch->save, pch->game, &pch->sd.handle, &pch->sd.arch))
+  if (loadSaveInfo(pch->save))
   {
-    printf("Backup Failed, Exiting\n");
+    printf("Load Failed, Exiting\n");
     return -1;
   }
   return 0;

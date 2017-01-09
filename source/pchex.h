@@ -61,8 +61,7 @@ s32 	deleteFile(char *path, Handle *fshdl, FS_archive *fsarch);
 s32 	filesysInit(Handle *, Handle *, FS_archive *, FS_archive *);
 s32 	filesysExit(Handle *, Handle *, FS_archive *, FS_archive *);
 
-s32 	backupSave(u8 *save, u8 game, Handle *fshdl, FS_archive *fsarch);
-s32 	exportSave(u8 *save, u8 game, Handle *fshdl, FS_archive *fsarch);
+s32 	loadSaveInfo(u8 *save);
 s32 	loadSave(u8 *save, Handle *fshdl, FS_archive *fsarch);
 
 s32	loadPokemon(t_stinf *state, u16 slot, u8 *dest);

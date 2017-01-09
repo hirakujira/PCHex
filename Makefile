@@ -140,6 +140,9 @@ sync: $(BUILD)
 	@cp ./PKSeed.3dsx /Volumes/3DS/3ds/PKSeed/PKSeed.3dsx
 	@cp ./PKSeed.elf /Volumes/3DS/3ds/PKSeed/PKSeed.elf
 	@cp ./PKSeed.smdh /Volumes/3DS/3ds/PKSeed/PKSeed.smdh
+
+sync2: $(BUILD)
+	@curl -T PKSeed.3dsx ftp://10.0.1.28:5000/3DS/PKSeed/
 #---------------------------------------------------------------------------------
 else
 
