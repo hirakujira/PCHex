@@ -36,9 +36,9 @@ u16 	ccitt16(u8 *data, u32 len)
 s32 	loadSaveInfo(u8 *save)
 {
   printf("Loading information now...\n\n");
-  printf("TID: %lu\n",(((u32)(getSaveSID(save) * 65536) + getSaveTID(save)) % 1000000));
-  printf("SID: %u\n", getSaveSID(save));
-  printf("TSV: %u\n", getSaveTSV(save));
+  printf("TID: %lu\n",(((u32)(getSID(save) * 65536) + getTID(save)) % 1000000));
+  printf("SID: %u\n", getSID(save));
+  printf("TSV: %u\n\n", getTSV(save));
   printf("Current Seed:\n%lx %lx %lx %lx\n", getSeed(save, 3), getSeed(save, 2), getSeed(save, 1), getSeed(save, 0));
   return 0;
 }
@@ -56,21 +56,21 @@ s32 	loadSave(u8 *save, Handle *fshdl, FS_archive *fsarch)
   return (getGame(bytesRead)); //we return the which game was found
 }
 
-u16 getSaveTID(u8* mainbuf) {
+u16 getTID(u8* mainbuf) {
     u16 buffer;
     memcpy(&buffer, &mainbuf[0x01200], 2);
     return buffer;
 }
 
-u16 getSaveSID(u8* mainbuf) {
+u16 getSID(u8* mainbuf) {
     u16 buffer;
     memcpy(&buffer, &mainbuf[(0x01200) + 2], 2);
     return buffer;
 }
 
-u16 getSaveTSV(u8* mainbuf) {
-  u16 TID = getSaveTID(mainbuf);
-  u16 SID = getSaveSID(mainbuf);
+u16 getTSV(u8* mainbuf) {
+  u16 TID = getTID(mainbuf);
+  u16 SID = getSID(mainbuf);
   return (TID ^ SID) >> 4;
 }
 

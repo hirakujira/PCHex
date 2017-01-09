@@ -2,7 +2,7 @@
 #define PCHEX_H
 
 #include <3ds.h>
-#include "pkx.h"
+// #include "pkx.h"
 
 struct 		s_3fs
 {
@@ -36,8 +36,8 @@ struct s_stateInfo
   u32 			kPressed; //stores what keys are pressed
   struct s_pchex	*pch;
 
-  struct s_pkm 		pkm; //the currently edited pokemon
-  struct s_pkm 		cpy; //the pokemon in the clipboard
+  // struct s_pkm 		pkm; //the currently edited pokemon
+  // struct s_pkm 		cpy; //the pokemon in the clipboard
   s16 			pkmSlot; //the current box slot which is edited
 
   struct s_UIState 	curState; //current state
@@ -70,19 +70,9 @@ u32 	getCHKOffset(u8 game, u8 type, u8 index);
 s32 	switchState(t_stinf *state, struct s_UIState newst);
 s32 	startLoop(struct s_pchex *);
 
-s16 	overlayGetpkm();
-s16 	overlayGetMove();
-s16 	overlayGetAbility();
-s16 	overlayGetItems();
-s16 	overlayGetBalls();
-s16 	overlayGetNature();
-
-u16 getBlockID(u8* mainbuf, int csoff, u32 i);
-u16 check16(u8 data[], u32 blockID, u32 len);
-
-u16 getSaveSID(u8* mainbuf);
-u16 getSaveTID(u8* mainbuf);
-u16 getSaveTSV(u8* mainbuf);
+u16 getSID(u8* mainbuf);
+u16 getTID(u8* mainbuf);
+u16 getTSV(u8* mainbuf);
 u32 getSeed(u8* mainbuf, int index);
 
 #endif /* end of include guard: PCHEX_H */
