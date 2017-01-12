@@ -1,7 +1,5 @@
 # PKSeed
-3DS Homebrew port of PKHex, A Pokémon save editor.
-
-Currently just proof of concept.
+Check you gen 7 game seed directly.
 
 # Build
 You need the v0.6 of ctrulib, found here: [https://github.com/smealum/ctrulib](https://github.com/smealum/ctrulib)

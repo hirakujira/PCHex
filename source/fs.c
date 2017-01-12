@@ -52,7 +52,8 @@ s32	filesysInit(Handle *sd, Handle *save, FS_archive *sdarch, FS_archive *savear
   if (ret) return ret;
 
   printf("  Opening SD Card archive\n");
-  *sdarch = (FS_archive){0x00000009, (FS_path){PATH_EMPTY, 1, (u8*)""}, 0, 0};
+  FS_path sdPath = (FS_path){PATH_EMPTY, 1, (u8*)""};
+  *sdarch = (FS_archive){0x00000009, sdPath, 0, 0};
   ret = FSUSER_OpenArchive(sd, sdarch);
   if (ret) return ret;
 
@@ -65,7 +66,8 @@ s32	filesysInit(Handle *sd, Handle *save, FS_archive *sdarch, FS_archive *savear
   if (ret) return ret;
 
   printf("  Opening save archive\n");
-  *savearch = (FS_archive){0x4, (FS_path){PATH_EMPTY, 0, NULL}, 0, 0};
+  FS_path savePath = (FS_path){PATH_EMPTY, 0, NULL};
+  *savearch = (FS_archive){0x4, savePath, 0, 0};
   ret = FSUSER_OpenArchive(save, savearch);
   return ret;
 }
